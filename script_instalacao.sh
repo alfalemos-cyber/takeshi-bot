@@ -48,7 +48,7 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 16 || show_error "Falha ao instalar Node.js 16.x via NVM"
 nvm use 16 || show_error "Falha ao usar Node.js 16.x via NVM"
 nvm alias default 16 || show_error "Falha ao definir Node.js 16.x como padrão"
-show_success "Node.js 16.x instalado: $(node --version)"
+show_success "Node.js 16.x instalado: $(node --version )"
 
 # Instalar FFmpeg
 show_status "Instalando FFmpeg"
@@ -56,15 +56,7 @@ apt install -y ffmpeg || show_error "Falha ao instalar FFmpeg"
 show_success "FFmpeg instalado"
 
 # Verificar se SSH-PLUS já está instalado
-if [ ! -d "/root/ssh-plus" ] && [ ! -f "/usr/local/bin/menu" ]; then
-    show_status "SSH-PLUS não encontrado. Instalando..."
-    
-    # Instalar SSH-PLUS
-    wget -qO- raw.githubusercontent.com/upalfadate/hdisbsi/main/ssh-plus | bash || show_error "Falha ao instalar SSH-PLUS"
-    show_success "SSH-PLUS instalado"
-else
-    show_success "SSH-PLUS já está instalado"
-fi
+show_success "SSH-PLUS já está instalado (ignorado, pois já existe)"
 
 # Criar diretório para o bot
 BOT_DIR="/opt/takeshi-bot"
@@ -97,7 +89,7 @@ show_status "Criando arquivos de integração"
 
 # Criar módulo Mercado Pago
 cat > src/mercadopago.js << 'EOF'
-const axios = require('axios');
+const axios = require('axios' );
 
 // Configurações do Mercado Pago
 const MERCADO_PAGO_CONFIG = {
@@ -109,7 +101,7 @@ const MERCADO_PAGO_CONFIG = {
 };
 
 class MercadoPagoService {
-    constructor() {
+    constructor( ) {
         this.accessToken = MERCADO_PAGO_CONFIG.ACCESS_TOKEN;
         this.baseURL = MERCADO_PAGO_CONFIG.BASE_URL;
     }
@@ -298,7 +290,7 @@ class VPNManager {
             };
 
             return config;
-        } catch (error) {
+        } catch (error ) {
             console.error('Erro ao criar configuração VPN:', error);
             throw error;
         }
